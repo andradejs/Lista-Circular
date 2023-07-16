@@ -4,7 +4,7 @@ class Lista_circula:
 
 
     def __init__(self) -> None:
-        self.indice = 0
+        self.tamanho = 0
         self.inicio = None
         self.final = None
         
@@ -18,24 +18,32 @@ class Lista_circula:
                 break
         return variavel
 
+    def mostrar_tamanho(self):
 
-    def adicionar(self,valor,pos = 0):
+        print(self.tamanho)
+
+    def adicionar(self,valor,pos = None):
+
+        self.tamanho += 1
+        if  pos == None  or pos > self.tamanho-1:
+            pos = self.tamanho-1
 
         no = No(valor)
 
-        if self.inicio == None:
-            self.inicio = no
 
-        self.indice += 1
-        if pos == self.indice-1:
+        if pos == self.tamanho-1:
             self.final = no
             self.final.next = self.inicio
         
+        if self.inicio == None:
+            self.inicio = no
+            self.final = no
+            self.final.next = self.inicio
 
             
 
 
-        if self.inicio != None:
+        else:
             if pos != 0:
                 variavel = self.inicio
                 for elemento in range(0,pos-1):
@@ -53,7 +61,7 @@ class Lista_circula:
 
     def apagar(self,valor):
         
-        if self.indice == 1:
+        if self.tamanho == 1:
             self.inicio = None
         else:
             variavel = self.inicio
@@ -70,28 +78,30 @@ class Lista_circula:
                     var_referencia.next = variavel.next
 
                     break
-        self.indice -=1
+        self.tamanho -=1
         
         
 
 
-    def tamanho(self):
-
-        print(self.indice)
+   
 
 
-    def mostra(self):
+    def mostrar(self):
         
         elemento = self.inicio
 
+
         print('[',end='')
-        while True:
-            print( elemento.valor,end='')
-            
-            elemento = elemento.next
-            if elemento == self.inicio:
-                print(']')
-                break
-            print(',',end='')
+        if elemento == None:
+            print(']')
+        else: 
+            while True:
+                print( elemento.valor,end='')
+                
+                elemento = elemento.next
+                if elemento == self.inicio:
+                    print(']')
+                    break
+                print(',',end='')
             
             
